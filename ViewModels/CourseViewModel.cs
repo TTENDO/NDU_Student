@@ -12,6 +12,11 @@ namespace NDU_Student.ViewModels
         public void LoadCourses(StudentDbContext context)
         {
             CourseItems = context.Courses.ToList();
+            if (!string.IsNullOrEmpty(SearchTerm))
+            {
+                CourseItems = CourseItems.Where(r => r.CourseCode.ToLower().Contains(SearchTerm.Trim().ToLower())
+                || r.Name.ToLower().Contains(SearchTerm.Trim().ToLower())).ToList();
+            }
         }
     }
 }
