@@ -12,6 +12,11 @@ namespace NDU_Student.Models
         [ForeignKey("Course")]
         public int CourseId { get; set; }
         public virtual Course Course { get; set; }
-
+        [NotMapped]
+        public string? SuccessMessage { get; set; }
+        [NotMapped]
+        public string? ErrorMessage { get; set; }
+        [NotMapped]
+        public List<Course> Courses { get; set; }
     }
 }

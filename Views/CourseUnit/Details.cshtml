@@ -1,0 +1,137 @@
+﻿@model NDU_Student.Models.CourseUnit
+
+@{
+    ViewData["Title"] = $"{(Model.Id == 0 ? "New" : "Edit")} Course Unit";
+}
+
+
+<div class="margin-bottom-10 row">
+
+    <div class="col-sm-12"><a asp-action="Index" class="btn btn-info"><i class="glyphicon glyphicon-backward"></i> Back to List</a></div>
+</div>
+
+
+@if (!string.IsNullOrEmpty(@Model?.SuccessMessage))
+{
+    <div class=" col-sm-6 no-padding">
+        <div class="alert alert-success alert-dismissible">
+            <b>Success</b>
+            <div class="row">
+                <div class="col-sm-9">
+                    @Model.SuccessMessage
+                </div>
+                <div class="col-sm-3">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+}
+@if (!string.IsNullOrEmpty(Model?.ErrorMessage))
+{
+    <div class=" col-sm-6 no-padding">
+        <div class="alert alert-danger alert-dismissible">
+            <b>Error</b>
+            <div class="row">
+                <div class="col-sm-9">
+                    @Model.ErrorMessage
+                </div>
+                <div class="col-sm-3">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+}
+<form asp-action="Details" id="editForm">
+
+    <div class="row motherDiv">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 innerDiv">
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6">
+                    <center><h4>@ViewData["Title"]</h4></center>
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @Html.HiddenFor(m => m.Id)
+
+                    <div class="form-group">
+                        <label asp-for="CourseId" class="control-label"></label>
+                        <select asp-for="CourseId" class="form-control">
+                            <option value="">-- Select Course --</option>
+                            @if (Model?.Courses != null)
+                            {
+                                foreach (var course in Model.Courses)
+                                {
+                                    <option value="@course?.Id">@course?.Name</option>
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="CourseId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label required">Name</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="CourseUnitCode" class="control-label "></label>
+                        <textarea asp-for="CourseUnitCode" class="form-control" maxlength="255"></textarea>
+                        <span asp-validation-for="CourseUnitCode" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="DoneInYear" class="control-label "></label>
+                        <textarea asp-for="DoneInYear" class="form-control" maxlength="255"></textarea>
+                        <span asp-validation-for="DoneInYear" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+            <div class="row margin-top-10">
+                <div class="col-sm-12">
+                    <div class="text-center">
+                       <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2"></div>
+
+    </div>
+</form>
+
+<div class="clearfix"></div>
+
+<form id="redirect-form-1" method="get" asp-action="Index">
+    <input type="hidden" name="SuccessMessage" class="success-message" />
+</form>
+
+<form id="redirect-form-2" method="get" asp-action="Details" asp-controller="Course" asp-route-id="0">
+    <input type="hidden" name="SuccessMessage" class="success-message" />
+</form>
+
+<form id="redirect-form-3" method="get" asp-action="Details" asp-controller="CourseUnit" asp-route-id="0">
+    <input type="hidden" name="SuccessMessage" class="success-message" />
+</form>
+
+@section Scripts {
+    <script>
+        // Function to confirm before submitting the form
+        function confirmSave(event) {
+            event.preventDefault(); // Prevent form submission
+            if (confirm("Are you sure you want to save the data?")) {
+                document.getElementById("editForm").submit(); // Submit the form
+            }
+        }
+
+        // Attach event listener to the form submission
+        document.getElementById("editForm").addEventListener("submit", confirmSave);
+    </script>
+}

@@ -96,22 +96,22 @@ namespace NDU_Student.Controllers
 
 
             // Retrieve the entity you want to delete
-            var entityToDelete = _context.Courses.FirstOrDefault(e => e.Id == Id);
+            var courseDb = _context.Courses.FirstOrDefault(e => e.Id == Id);
 
-            if (entityToDelete != null)
+            if (courseDb != null)
             {
                 // Remove the entity from the context
-                _context.Courses.Remove(entityToDelete);
+                _context.Courses.Remove(courseDb);
 
                 // Save changes to the database
                 _context.SaveChanges();
 
-                errorMessage = "Entity deleted successfully.";
+                errorMessage = "Course deleted successfully.";
                 success = true;
             }
             else
             {
-                errorMessage = "Entity not found.";
+                errorMessage = "Course not found.";
                 success = false;
             }
 
