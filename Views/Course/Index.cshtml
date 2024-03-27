@@ -101,24 +101,7 @@
 </form>
 
 @section Scripts {
-    <script type="text/javascript">
-        // function deleteItem(id, itemNo, extraNote) {
-        //     var message = "Do you confirm deleting item no." + itemNo + "?";
-        //     if (extraNote != null) {
-        //         message += "<br/><b>Note:</b><br/>" + extraNote;
-        //     }
-
-        //     confirmMessage(message, function () {
-        //         app.postToServer("@Url.Action("_Delete")", { Id: id }, function (response) {
-        //             if (response.success) {
-        //                 $("#reload-form").submit();
-        //             }
-        //             else {
-        //                 error(response.errorMessage);
-        //             }
-        //         });
-        //     });
-        // }
+    <script type="text/javascript">   
 
         function confirmDelete(id) {
             if (confirm("Are you sure you want to delete this item?")) {

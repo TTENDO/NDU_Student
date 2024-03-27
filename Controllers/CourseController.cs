@@ -40,7 +40,6 @@ namespace NDU_Student.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Course course)
         {
-            string ErrorMessage = "";
             try
             {
                 if (string.IsNullOrEmpty(course.CourseCode))
